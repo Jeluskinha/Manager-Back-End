@@ -1,0 +1,6 @@
+Admin é um diretório para rotas que serão usada no (console de desenvolvedor) -> programado no front-end
+- é uma forma de fazer as requeste teste, ex: deletar todos, cadastrar todos
+
+
+quimicosCreateMany -> cadastra todos os quimicos e cria o estoque ao mesmo tempo
+quimicosDeleteMany -> deleta todos os quimicos e seu estoque ao mesmo tempo

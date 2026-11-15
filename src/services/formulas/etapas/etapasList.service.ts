@@ -1,8 +1,8 @@
-import { Etapa } from "../../../entities/formula/etapa.entity";
-import { AppDataSource } from "../../../data-source";
+import { Etapa } from "../../../entities/main_database/formula/etapa.entity";
+import { VancourosDataSource } from "../../../database/data-source-main";
 
 const etapasListService = async () => {
-  const etapasRepository = AppDataSource.getRepository(Etapa)
+  const etapasRepository = VancourosDataSource.getRepository(Etapa)
 
   const etapas = etapasRepository.find();
 

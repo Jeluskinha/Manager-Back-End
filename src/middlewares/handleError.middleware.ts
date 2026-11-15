@@ -1,19 +1,20 @@
 import { Request, Response, NextFunction } from "express";
-import { AppError } from "../errors/appError";
+import { AppError, handleError } from "../errors/appError";
 
-const handleErrorMiddleware = async (error: Error, req:Request, res: Response, next: NextFunction) => {
+const handleErrorMiddleware = (error: Error, req: Request, res: Response, next: NextFunction) => {
 
-  if(error instanceof AppError) {
-    return res.status(error.statusCode).json({
-      message: error.message
-    })
+  if (error instanceof AppError) {
+    return handleError(error, res);
   }
-  console.log(error)
+
+  // Erro inesperado: registra no servidor (o cliente só recebe a mensagem genérica)
+  console.error(`[${req.method} ${req.originalUrl}]`, error);
 
   return res.status(500).json({
-    message: 'Internal server error'
-  })
+    status: "error",
+    statusCode: 500,
+    message: "Erro interno do servidor"
+  });
+};
 
-}
-
-export default handleErrorMiddleware
+export default handleErrorMiddleware;

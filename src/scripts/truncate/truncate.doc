@@ -1,0 +1,54 @@
+ 
+Para resolver o problema de truncar a tabela Quimico que é referenciada por uma chave estrangeira na tabela Recebimento ao usar TypeORM no Node.js,
+foi criado o script 'Truncate'.
+
+abaixo como invocar a função corretamente dentro da tabela desejada, neste caso o erro ocorria ao tentar deletar todos os itens da tabela quimicos
+* Ao chamar a função 'truncateTables' informar as tabelas relacionadas em forma de parametros, que neste caso era "recebimentos" & "quimicos"
+ 
+ truncateTables("recebimentos", "quimicos")
+  .then(() => {
+    console.log("Tabelas truncadas com sucesso!");
+  })
+  .catch((error) => {
+    console.error("Erro ao truncar tabelas:", error);
+  });
+
+*invocara função dentro do service da rota, uma linha acima do comando que irá remover os itens da tabela*
+em caso de duvida consultar rota quimicosDeleteMany.service em services
+
+
+
+1. *Gerenciamento de Transações*:
+   - A função truncateTables agora gerencia as transações para garantir que ambas as tabelas sejam truncadas ao mesmo tempo.
+   - A ordem das operações de truncagem foi ajustada para garantir que as restrições de chave estrangeira sejam respeitadas.
+
+2. *Condição para Truncagem*:
+   - A função truncateTables é chamada apenas se houver registros na tabela quimicos, o que previne chamadas desnecessárias.
+
+### Considerações Finais
+
+Certifique-se de que:
+
+- Os nomes das tabelas passados para a função truncateTables estão corretos e correspondem exatamente aos nomes no banco de dados.
+- O TypeORM e o banco de dados PostgreSQL estão corretamente configurados para suportar operações de truncagem com CASCADE.
+
+Com essas alterações, a função deve truncar corretamente as tabelas recebimentos e quimicos sem erros de restrições de chave estrangeira.
+
+
+
+                                             eu não preciso de  await quimicoRepository.clear() ?
+
+Se você está truncando as tabelas quimicos e recebimentos usando a função truncateTables, não há necessidade de chamar quimicoRepository.clear(). A função TRUNCATE com a opção CASCADE já irá remover todos os registros dessas tabelas e todas as tabelas relacionadas de forma eficiente.
+
+Aqui está um resumo do que cada operação faz:
+
+### TRUNCATE ... CASCADE
+
+- *Truncate*: Remove todos os registros da tabela de forma rápida.
+- *CASCADE*: Garante que todas as tabelas que possuem chaves estrangeiras para a tabela truncada também serão truncadas.
+
+### Repository.clear()
+
+- Remove todos os registros de uma tabela sem usar TRUNCATE.
+
+Dado que você está usando TRUNCATE ... CASCADE na função truncateTables, você não precisa do clear() adicional.

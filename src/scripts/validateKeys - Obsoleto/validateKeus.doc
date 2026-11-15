@@ -1,0 +1,27 @@
+Foi implementado um try catch para melhoar a validação de dados nas rotas de CREATE e UPDATE
+- nas rotas de CREATE eu não tive problemas com a validação das chaves -> quando inseridas incorretamente um erro era lançado "automaitcamente" e entrava na rota de catch,
+mas isto não estava acontecendo nas rotas de UPDATE 
+
+Então uma função chamada validate Keys foi criada a fim de resolver o problema e abrigada em scripts a fim de evitar muitas linhas de código nos CONTROLLERS
+
+esta função recebe 2 parametros
+1 - um Array com o produto das chaves -> ['produto', 'codigo']
+2 - o objeto recebido via request do front-end -> const quimico = req.body -> quimico
+
+
+
+sendo assim a função é invocada desta forma dentro do controller
+⮩ validateKeys(['produto', 'codigo'], quimico)
+
+- mantive explicito o array de strings para ficar mais fácil de entender
+
+
+
+A função valida se as chaves de quimico são as mesmas contindas no array informado. Retorno -> (true ou Error) para que seja capturada pelo try catch do controller mantendo o padrão coerente com a rota CREATE
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Obsoleto desde 21/11/2025 
+
+era usado em update de Quimicos, mantido apenas comentado para revisão futura
+
+-> trycatch dentro dos controlers de update estão comentado -> remover também

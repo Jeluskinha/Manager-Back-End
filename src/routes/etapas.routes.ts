@@ -1,5 +1,5 @@
 import { Router } from "express";
-import etapaCreateController from "../controllers/formulas/etapas/etapasCreate.services";
+import etapaCreateController from "../controllers/formulas/etapas/etapasCreate.controller";
 import etapasListController from "../controllers/formulas/etapas/etapasList.controller";
 
 const router = Router();

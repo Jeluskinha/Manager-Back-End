@@ -1,5 +1,5 @@
 import { Router } from "express";
-import artigoCreateController from "../controllers/artigos/artigosCreate.services";
+import artigoCreateController from "../controllers/artigos/artigosCreate.controller";
 import artigoListController from "../controllers/artigos/artigosList.controller";
 
 const router = Router();

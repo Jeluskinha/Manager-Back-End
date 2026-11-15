@@ -1,8 +1,8 @@
-import { AppDataSource } from "../../data-source";
-import { Artigo } from "../../entities/artigo/artigo.entity";
+import { VancourosDataSource } from "../../database/data-source-main";
+import { Artigo } from "../../entities/main_database/artigo/artigo.entity";
 
 const artigoListService = async () => {
-  const artigoRepository = AppDataSource.getRepository(Artigo);
+  const artigoRepository = VancourosDataSource.getRepository(Artigo);
 
   const artigos = artigoRepository.find();
 
